@@ -68,8 +68,9 @@ const ResumeTailor = () => {
     };
 
     const handleTailor = async () => {
-        if (!jobDescription.trim()) {
-            setError("Please enter a job description");
+        const trimmedJD = (jobDescription || '').trim();
+        if (!trimmedJD || trimmedJD.length < 20) {
+            setError("Please enter a detailed job description (min 20 characters)");
             return;
         }
 

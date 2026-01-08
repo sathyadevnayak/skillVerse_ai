@@ -68,7 +68,7 @@ const App = () => {
                     <Terminal size={18} className="text-white sm:w-5 sm:h-5" />
                 </div>
                 <h1 className="text-base sm:text-xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                  skillVerse<span className="text-indigo-600 dark:text-indigo-400">_ai</span>
+                  SkillVerse<span className="text-indigo-600 dark:text-indigo-400">_AI</span>
                 </h1>
             </Link>
 
@@ -134,6 +134,30 @@ const App = () => {
                             {link.icon} {link.label}
                         </Link>
                     ))}
+                    
+                    {/* Mobile Auth Button */}
+                    <div className="pt-2 border-t border-white/10">
+                        {authUser ? (
+                            <button 
+                                onClick={() => { 
+                                    localStorage.removeItem('auth_token'); 
+                                    logout(); 
+                                    setMobileMenuOpen(false);
+                                }} 
+                                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold bg-indigo-600 text-white hover:bg-indigo-500"
+                            >
+                                <User size={18}/> {authUser.name} (Logout)
+                            </button>
+                        ) : (
+                            <Link 
+                                to="/signin" 
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold bg-indigo-600 text-white hover:bg-indigo-500"
+                            >
+                                <User size={18}/> Sign In
+                            </Link>
+                        )}
+                    </div>
                 </div>
             </motion.div>
         )}

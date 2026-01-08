@@ -48,10 +48,10 @@ const GithubScanner = () => {
         let data = githubData.profile?.stats?.topLanguages;
         
         // Fallback Logic
-        if (!data || data.length === 0) {
+        if (!data || !Array.isArray(data) || data.length === 0) {
             const frontend = githubData.analysis?.tech_stack?.frontend || [];
             const backend = githubData.analysis?.tech_stack?.backend || [];
-            const allTech = [...frontend, ...backend];
+            const allTech = [...frontend, ...backend].filter(Boolean);
 
             if (allTech.length > 0) {
                 const uniqueTech = [...new Set(allTech)];
@@ -62,7 +62,7 @@ const GithubScanner = () => {
                 }));
             }
         }
-        return data || [];
+        return Array.isArray(data) ? data : [];
     }, [githubData]);
 
     // --- HANDLERS ---

@@ -27,10 +27,10 @@ const RoadmapGenerator = () => {
     }, [location.state]);
 
     const stats = useMemo(() => {
-        if (!roadmapData?.length) return null;
+        if (!roadmapData || !Array.isArray(roadmapData) || roadmapData.length === 0) return null;
         return {
             totalWeeks: roadmapData.length,
-            totalTasks: roadmapData.reduce((s, w) => s + (w.tasks?.length || 0), 0),
+            totalTasks: roadmapData.reduce((s, w) => s + (w?.tasks?.length || 0), 0),
             projects: roadmapData.length,
             hours: roadmapData.length * 18,
         };
@@ -84,14 +84,17 @@ const RoadmapGenerator = () => {
     };
 
     const fetchResources = async (query) => {
+        if (!query || !query.trim()) return;
         setLoadingResources(true);
         setResourceError('');
         try {
             const res = await api.getLearningResources(query);
-            setResources(res.data?.data?.videos || []);
+            const videos = res.data?.data?.videos;
+            setResources(Array.isArray(videos) ? videos : []);
         } catch (err) {
             const msg = err.response?.data?.error?.message || err.message || 'Could not fetch resources.';
             setResourceError(msg);
+            setResources([]);
         } finally {
             setLoadingResources(false);
         }

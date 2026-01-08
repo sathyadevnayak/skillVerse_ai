@@ -1,255 +1,788 @@
-# CareerBoost AI
+<div align="center">
 
-Hey there! 👋 Welcome to **CareerBoost AI** – your AI-powered career booster.
+# 🚀 SkillVerse_AI
 
-- Scans resumes, GitHub, LinkedIn profiles.
-- Tailors applications for jobs.
-- Generates personalized career roadmaps.
-- Makes job hunting smarter and easier.
+### AI-Powered Career Intelligence Platform
 
-## Main Aim
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6+-green.svg)](https://www.mongodb.com/)
 
-- Empower job seekers with AI tools.
-- Analyze and optimize career documents/profiles.
-- Help stand out in competitive markets.
-- Provide personalized strategies for success.
-- Guide through resume polishing, online presence, and career planning.
+**Transform your career with AI-driven insights.** Analyze resumes, optimize profiles, and generate personalized roadmaps—all in one intelligent platform.
 
-## Features
+[Features](#-features) • [Quick Start](#-quick-start) • [Tech Stack](#-tech-stack) • [Architecture](#-architecture) • [Demo](#-demo)
 
-### 1. Resume Audit & Tailoring
-- Upload PDF resume for AI analysis.
-- Checks ATS compatibility, keywords, formatting.
-- Suggests tailoring for job descriptions.
-- **Key Files**:
-  - Frontend: `ResumeAudit.jsx`, `ResumeCombined.jsx`, `ResumeTailor.jsx`.
-  - Backend: `resumeController.js`, `aiService.js`, `gemini.js`.
-  - Hooks: `useScanAts.js`.
+</div>
 
-### 2. ATS Scanner
-- Simulates ATS reading of resumes.
-- Scores match against job descriptions.
-- Highlights missing keywords and improvements.
-- **Key Files**:
-  - Frontend: `AtsScanner.jsx`.
-  - Backend: `atsController.js`, `aiService.js`.
+---
 
-### 3. GitHub Profile Scan
-- Analyzes GitHub for skills, projects, contributions.
-- Provides recruiter insights and tips.
-- **Key Files**:
-  - Frontend: `GithubScanner.jsx`.
-  - Backend: `githubController.js`, `aiService.js`.
-  - Hooks: `useScanGithub.js`.
+## 📋 Table of Contents
 
-### 4. LinkedIn Profile Review
-- Reviews profile completeness and visibility.
-- Checks summary, experience, skills, endorsements.
-- Offers networking tips.
-- **Key Files**:
-  - Frontend: `LinkedinScanner.jsx`.
-  - Backend: `linkedinController.js`, `aiService.js`.
-  - Hooks: `useScanLinkedin.js`.
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Configuration](#-configuration)
+- [API Documentation](#-api-documentation)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-### 5. Roadmap Generator
-- Generates personalized career roadmaps.
-- Based on goals, skills, target roles.
-- Includes steps, timelines, resources.
-- **Key Files**:
-  - Frontend: `RoadmapGenerator.jsx`.
-  - Backend: `roadmapController.js`, `aiService.js`.
-  - Hooks: `useRoadmap.js`.
+---
 
-### 6. AI-Powered Insights & UI
-- AI for smart, context-aware advice.
-- UI with 3D scenes, glass cards, animations.
-- **Key Files**:
-  - Frontend: `HeroScene.jsx`, `GlassCard.jsx`, `Animations.jsx`, `GradientButton.jsx`.
-  - Backend: `aiService.js`, `gemini.js`.
-  - Store: `useStore.js`.
+## 🎯 Overview
 
-### Additional Backend Features
-- **File Upload & Parsing**:
-  - Handles PDF uploads.
-  - Files: `upload.js`, `inspect_pdf_parse.js`.
-- **Database & Models**:
-  - User profiles storage.
-  - Files: `db.js`, `UserProfile.js`.
-- **Error Handling & Routing**:
-  - Middleware and API routes.
-  - Files: `errorMiddleware.js`, `apiRoutes.js`.
+**SkillVerse_AI** is a comprehensive career intelligence platform that leverages cutting-edge AI (Google Gemini) to help job seekers optimize their professional presence. The platform combines resume analysis, profile scanning, and personalized career planning into a seamless, intuitive experience.
 
-## Tech Stack
+### Why SkillVerse_AI?
 
-- **Frontend**:
-  - React (JSX) for UI.
-  - Vite for development/bundling.
-  - Tailwind CSS for styling.
-  - Three.js for 3D.
-  - ESLint, PostCSS for quality.
+- 🎯 **ATS Optimization**: Beat applicant tracking systems with AI-powered resume analysis
+- 🔍 **Multi-Platform Scanning**: Analyze GitHub contributions and LinkedIn profiles
+- 🗺️ **Smart Roadmaps**: Generate personalized learning paths based on your goals
+- 🎨 **Modern UI/UX**: Glassmorphism design with 3D elements and smooth animations
+- 🔐 **Secure Authentication**: Google OAuth integration with JWT tokens
+- ⚡ **Real-time AI**: Multi-key rotation system ensures uninterrupted service
 
-- **Backend**:
-  - Node.js, Express.js for server.
-  - MongoDB (Mongoose) for data.
-  - Multer for uploads.
-  - PDF parsing libs.
+---
 
-- **AI & Integrations**:
-  - Gemini AI for NLP/insights.
-  - Axios for API calls (`api.js`).
+## ✨ Features
 
-- **Other**:
-  - npm for packages.
-  - Git for version control.
+### 🎯 Resume Intelligence Suite
 
-## Project Structure
+#### 1. **Resume Audit & Analysis**
+- **ATS Compatibility Score**: Get a percentage-based compatibility score
+- **Skill Gap Detection**: Identifies critical, recommended, and nice-to-have skills
+- **Career Progression**: Maps your current level to next career milestones
+- **Actionable Insights**: Concrete steps to improve your resume
+- **Job Recommendations**: AI-suggested roles with match confidence scores
+
+#### 2. **Resume Tailor**
+- **Job-Specific Optimization**: Customize resume for target job descriptions
+- **Keyword Enhancement**: Strategic keyword placement for ATS systems
+- **Multiple Input Methods**: Upload PDF, paste text, or use saved resume
+- **Before/After Comparison**: See exactly what changed and why
+
+#### 3. **Resume Roaster** 🔥
+- **Three Roast Levels**: Mild (gentle), Medium (direct), Spicy (savage)
+- **Human Tone**: Plain English feedback, no AI jargon
+- **Constructive Criticism**: Identifies strengths, gaps, and improvements
+- **Career-Focused**: Roasts the work, not the person
+
+### 🔍 Profile Analysis Tools
+
+#### 4. **GitHub Scanner**
+- **Tech Stack Analysis**: Visualizes language distribution with interactive charts
+- **Project Evaluation**: Assesses code quality, consistency, and documentation
+- **Contribution Metrics**: Analyzes commit patterns and collaboration
+- **Job Match Suggestions**: Recommends roles based on GitHub activity
+- **Direct Job Search Links**: One-click access to LinkedIn, Indeed, and more
+
+#### 5. **LinkedIn Profile Reviewer**
+- **Visual Brand Score**: 0-100 score for first impression
+- **Photo Quality Report**: Analyzes background, lighting, framing, expression
+- **Headline Optimization**: AI-generated headline suggestions
+- **Critical Issues**: Identifies gaps in profile completeness
+- **Optimization Checklist**: Prioritized action items
+
+#### 6. **ATS Scanner**
+- **Match Percentage**: Direct comparison against job descriptions
+- **Missing Keywords**: Highlights critical skills not in resume
+- **Suggested Rewrite**: AI-generated improved version of resume sections
+- **Real-time Analysis**: Instant feedback as you upload
+
+### 🗺️ Career Planning
+
+#### 7. **Roadmap Generator**
+- **Personalized Learning Paths**: 3-6 week structured roadmaps
+- **Skill-Based Planning**: Beginner, Intermediate, or Advanced levels
+- **Weekly Breakdown**: Tasks, projects, and time estimates
+- **YouTube Resources**: Curated learning videos for each skill
+- **Progress Tracking**: Visual stats for weeks, tasks, projects, hours
+
+### 🎨 User Experience
+
+- **3D Hero Scene**: Three.js powered interactive landing
+- **Glassmorphism UI**: Modern glass cards with blur effects
+- **Smooth Animations**: Count-up effects, fade-ins, typewriter text
+- **Responsive Design**: Mobile-first, works on all devices
+- **Dark Theme**: Eye-friendly dark mode throughout
+- **Persistent State**: Zustand store with localStorage sync
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Purpose | Version |
+|------------|---------|---------|
+| **React** | UI Framework | 18.3+ |
+| **Vite** | Build Tool | 5.0+ |
+| **Tailwind CSS** | Styling | 3.4+ |
+| **Three.js** | 3D Graphics | Latest |
+| **Recharts** | Data Visualization | 2.10+ |
+| **Zustand** | State Management | 4.5+ |
+| **React Router** | Navigation | 6.21+ |
+| **Axios** | HTTP Client | 1.6+ |
+| **Lucide React** | Icons | 0.344+ |
+
+### Backend
+| Technology | Purpose | Version |
+|------------|---------|---------|
+| **Node.js** | Runtime | 18+ |
+| **Express.js** | Web Framework | 4.18+ |
+| **MongoDB** | Database | 6.0+ |
+| **Mongoose** | ODM | 8.1+ |
+| **Google Gemini AI** | AI Engine | 2.5 Flash |
+| **Multer** | File Uploads | 1.4+ |
+| **PDF-Parse** | PDF Extraction | 1.1+ |
+| **JWT** | Authentication | 9.0+ |
+| **bcryptjs** | Password Hashing | 2.4+ |
+
+### DevOps & Tools
+- **ESLint** - Code linting
+- **PostCSS** - CSS processing
+- **Nodemon** - Auto-restart server
+- **dotenv** - Environment variables
+
+---
+
+## 🏗️ Architecture
+
+### System Design
 
 ```
-demo/
-├── client/                    # React app
-│   ├── public/                # Assets
-│   ├── src/
-│   │   ├── components/        # UI components
-│   │   │   ├── 3d/            # 3D scenes
-│   │   │   ├── features/      # Feature components
-│   │   │   └── ui/            # UI elements
-│   │   ├── hooks/             # React hooks
-│   │   ├── services/          # API layer
-│   │   ├── store/             # State
-│   │   └── App.jsx            # Main app
-│   ├── package.json
-│   └── vite.config.js
-├── server/                    # Node.js app
-│   ├── config/                # DB config
-│   ├── controllers/           # Handlers
-│   ├── middleware/            # Middleware
-│   ├── models/                # Data models
-│   ├── routes/                # API routes
-│   ├── services/                # Logic
-│   ├── utils/                 # Utils
-│   ├── uploads/               # Files
-│   ├── server.js              # Main server
-│   └── package.json
-└── README.md
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Client    │ ◄─────► │   Express    │ ◄─────► │   MongoDB   │
+│   (React)   │  HTTPS  │   Server     │   TCP   │   Database  │
+└─────────────┘         └──────────────┘         └─────────────┘
+                              │
+                              │ API Calls
+                              ▼
+                        ┌──────────────┐
+                        │   Gemini AI  │
+                        │   (Google)   │
+                        └──────────────┘
 ```
 
-## Getting Started
+### Key Design Patterns
+
+1. **Multi-Key Rotation**: Automatically rotates between API keys on quota/rate limits
+2. **Middleware Pipeline**: Auth → Validation → Business Logic → Error Handling
+3. **Component Composition**: Reusable UI components (GlassCard, GradientButton)
+4. **Custom Hooks**: Encapsulated logic (useScanGithub, useRoadmap)
+5. **Centralized State**: Zustand store with persistence
+6. **Service Layer**: Separated business logic from controllers
+
+### API Flow Example (Resume Audit)
+
+```
+User uploads PDF
+    ↓
+Frontend: api.js → POST /api/resume/audit
+    ↓
+Backend: authMiddleware → upload.js → resumeController.js
+    ↓
+Extract text (PDF-Parse/Mammoth)
+    ↓
+Send to Gemini AI with structured prompt
+    ↓
+Parse JSON response → Store in MongoDB
+    ↓
+Return structured data to frontend
+    ↓
+Display in ResumeAudit.jsx with charts/cards
+```
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (16+)
-- npm/yarn
-- MongoDB
-- Gemini API key
-- Google OAuth Client ID (for authentication)
+
+Ensure you have the following installed:
+
+- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
+- **npm** or **yarn** - Comes with Node.js
+- **MongoDB** - [Install locally](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- **Git** - [Download](https://git-scm.com/)
 
 ### Installation
 
-#### 1. Clone Repository
+#### Step 1: Clone the Repository
+
 ```bash
-git clone <url>
+git clone https://github.com/yourusername/SkillVerse_AI.git
 cd SkillVerse_AI
 ```
 
-#### 2. Backend Setup
+#### Step 2: Backend Setup
+
 ```bash
 cd server
 npm install
 ```
 
-**Configure Environment Variables:**
-- Copy `.env.example` to `.env`:
-  ```bash
-  cp .env.example .env
-  ```
-- Edit `server/.env` and fill in your actual values:
-  ```env
-  PORT=5000
-  NODE_ENV=development
-  GEMINI_API_KEY=your_actual_gemini_key
-  GITHUB_TOKEN=your_github_token
-  MONGO_URI=your_mongodb_connection_string
-  JWT_SECRET=your_secure_jwt_secret
-  JWT_EXPIRES_IN=7d
-  GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
-  ```
+Create `.env` file in `server/` directory:
+
+```env
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# Database
+MONGO_URI=mongodb://localhost:27017/skillverse
+# OR for MongoDB Atlas:
+# MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/skillverse
+
+# Authentication
+JWT_SECRET=your_super_secure_random_string_here_min_32_chars
+JWT_EXPIRES_IN=7d
+GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+
+# AI APIs (Get from https://aistudio.google.com/)
+GEMINI_API_KEY=your_gemini_key_1,your_gemini_key_2,your_gemini_key_3
+
+# Optional: GitHub Token for rate limit bypass
+GITHUB_TOKEN=your_github_personal_access_token
+```
 
 **Start Backend:**
+
 ```bash
 npm run dev
 ```
 
-#### 3. Frontend Setup
+Server runs on `http://localhost:5000`
+
+#### Step 3: Frontend Setup
+
 ```bash
 cd ../client
 npm install
 ```
 
-**Configure Environment Variables:**
-- Copy `.env.example` to `.env`:
-  ```bash
-  cp .env.example .env
-  ```
-- Edit `client/.env` with the same Google Client ID:
-  ```env
-  VITE_GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
-  VITE_API_URL=http://localhost:5000/api
-  ```
+Create `.env` file in `client/` directory:
+
+```env
+VITE_GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+VITE_API_URL=/api
+```
 
 **Start Frontend:**
+
 ```bash
 npm run dev
 ```
 
-#### 4. Open Application
-Navigate to `http://localhost:5173`
+App runs on `http://localhost:5173`
+
+#### Step 4: Access the Application
+
+Open your browser and navigate to:
+
+```
+http://localhost:5173
+```
+
+---
+
+## ⚙️ Configuration
 
 ### Google OAuth Setup
 
-To enable Google Sign-In:
-
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
+2. Create a new project or select an existing one
 3. Navigate to **APIs & Services** → **Credentials**
 4. Click **Create Credentials** → **OAuth 2.0 Client ID**
-5. Configure OAuth consent screen if prompted
+5. Configure OAuth consent screen (add app name, email, logo)
 6. Select **Web application** as application type
 7. Add **Authorized JavaScript origins**:
-   - `http://localhost:5173`
-8. Add **Authorized redirect URIs** (optional):
-   - `http://localhost:5173`
-9. Copy the **Client ID** and paste it in both `.env` files
+   ```
+   http://localhost:5173
+   ```
+8. Add **Authorized redirect URIs**:
+   ```
+   http://localhost:5173
+   ```
+9. Copy the **Client ID** and paste into both `.env` files
 
-### Configuration
-- Add all required API keys to `.env` files (use `.env.example` as template).
-- Ensure MongoDB is running and accessible.
-- Restart both servers after changing `.env` files.
-- Default Ports: Backend 5000, Frontend 5173.
+### Gemini API Setup
 
-## Usage
-- Dashboard: 3D hero, navigate features.
-- Resume: Upload PDF in `ResumeAudit.jsx` for audit.
-- Scanners: Use ATS, GitHub, LinkedIn components.
-- Roadmap: Generate in `RoadmapGenerator.jsx`.
-- API: Frontend calls backend via `api.js`.
+1. Visit [Google AI Studio](https://aistudio.google.com/)
+2. Sign in with your Google account
+3. Click **Get API Key** → **Create API key**
+4. Copy the key and add to `server/.env` as `GEMINI_API_KEY`
+5. **(Recommended)**: Create multiple API keys for rotation to avoid rate limits
 
-## API Endpoints
-- `POST /api/resume/audit` - Resume analysis
-- `POST /api/ats/scan` - ATS scan
-- `POST /api/github/scan` - GitHub scan
-- `POST /api/linkedin/scan` - LinkedIn review
-- `POST /api/roadmap/generate` - Roadmap gen
-- `POST /api/upload` - File upload
+### MongoDB Setup
 
-## Contributing
-- Fork repo.
-- Create branch: `git checkout -b feature`
-- Make changes, test.
-- PR with clear commits.
+**Option 1: Local MongoDB**
+```bash
+# Install MongoDB Community Edition
+# macOS (Homebrew)
+brew tap mongodb/brew
+brew install mongodb-community
 
-## License
-MIT License.
+# Start MongoDB
+brew services start mongodb-community
 
-## Support
-Open issues on GitHub.
+# Use in .env
+MONGO_URI=mongodb://localhost:27017/skillverse
+```
 
-Happy boosting! 🚀
+**Option 2: MongoDB Atlas (Cloud)**
+1. Create account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create a free cluster
+3. Add your IP to whitelist (or allow 0.0.0.0/0 for development)
+4. Create a database user
+5. Get connection string and add to `.env`
+
+---
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+
+#### POST `/api/auth/signup`
+Create a new user account.
+
+**Request Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "SecurePass123!"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "token": "jwt_token_here",
+  "user": {
+    "id": "user_id",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+```
+
+#### POST `/api/auth/signin`
+Sign in existing user.
+
+**Request Body:**
+```json
+{
+  "email": "john@example.com",
+  "password": "SecurePass123!"
+}
+```
+
+#### POST `/api/auth/google`
+Google OAuth authentication.
+
+**Request Body:**
+```json
+{
+  "credential": "google_oauth_token"
+}
+```
+
+### Resume Endpoints (Protected)
+
+#### POST `/api/resume/parse`
+Extract text from resume file.
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: multipart/form-data
+```
+
+**Form Data:**
+```
+resume: <PDF/DOCX file>
+```
+
+#### POST `/api/resume/audit-text`
+Comprehensive resume analysis.
+
+**Request Body:**
+```json
+{
+  "resumeText": "Your resume content here..."
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "atsScore": 78,
+    "profileSummary": "Mid-level Software Engineer...",
+    "detectedSkills": {
+      "technical": ["React", "Node.js", "MongoDB"],
+      "soft": ["Communication", "Leadership"]
+    },
+    "skillGaps": {
+      "critical": ["Docker", "Kubernetes"],
+      "recommended": ["AWS", "CI/CD"],
+      "niceToHave": ["GraphQL"]
+    },
+    "strengths": [...],
+    "weaknesses": [...],
+    "actionableInsights": [...],
+    "recommendedJobs": [...]
+  }
+}
+```
+
+#### POST `/api/resume/tailor`
+Tailor resume for specific job description.
+
+**Request Body:**
+```json
+{
+  "existingResumeText": "Your resume...",
+  "jobDescription": "We are seeking..."
+}
+```
+
+#### POST `/api/resume/roast`
+Get playful resume feedback.
+
+**Request Body:**
+```json
+{
+  "resumeText": "Your resume...",
+  "roastLevel": "Mild" // "Mild" | "Medium" | "Spicy"
+}
+```
+
+### Profile Analysis Endpoints
+
+#### POST `/api/github`
+Analyze GitHub profile.
+
+**Request Body:**
+```json
+{
+  "username": "github_username"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "profile": {
+      "stats": {
+        "topLanguages": [
+          { "language": "JavaScript", "percentage": 45 }
+        ],
+        "repos": 25,
+        "followers": 150
+      }
+    },
+    "analysis": {
+      "tech_stack": {
+        "frontend": ["React", "Vue"],
+        "backend": ["Node.js", "Python"]
+      },
+      "project_quality": "Strong project diversity...",
+      "code_consistency": "Consistent coding style...",
+      "recommended_jobs": [...]
+    }
+  }
+}
+```
+
+#### POST `/api/linkedin`
+Analyze LinkedIn profile screenshot.
+
+**Headers:**
+```
+Content-Type: multipart/form-data
+```
+
+**Form Data:**
+```
+screenshot: <Image file>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "visual_score": 82,
+    "critique": "Profile needs stronger headline...",
+    "headline_suggestion": "Senior Full-Stack Developer...",
+    "action_items": [...],
+    "photo_report": {
+      "strengths": [...],
+      "issues": [...],
+      "quality_score": 85
+    }
+  }
+}
+```
+
+#### POST `/api/ats`
+ATS compatibility check.
+
+**Form Data:**
+```
+resume: <PDF file>
+jobDescription: <String>
+```
+
+### Roadmap Endpoint
+
+#### POST `/api/roadmap`
+Generate learning roadmap.
+
+**Request Body:**
+```json
+{
+  "skill": "Docker",
+  "currentLevel": "Beginner" // "Beginner" | "Intermediate" | "Advanced"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "week": 1,
+      "focus": "Docker Fundamentals",
+      "tasks": [
+        "Install Docker Desktop",
+        "Complete Docker tutorial",
+        "Build your first container"
+      ],
+      "project": "Containerize a simple Node.js app",
+      "resources": [...]
+    }
+  ]
+}
+```
+
+---
+
+## 📁 Project Structure
+
+```
+SkillVerse_AI/
+│
+├── client/                          # React Frontend
+│   ├── public/                      # Static assets
+│   ├── src/
+│   │   ├── assets/                  # Images, fonts
+│   │   ├── components/
+│   │   │   ├── 3d/
+│   │   │   │   └── HeroScene.jsx    # Three.js 3D scene
+│   │   │   ├── features/
+│   │   │   │   ├── auth/            # Sign in/up, Google OAuth
+│   │   │   │   ├── ats/             # ATS scanner
+│   │   │   │   ├── github/          # GitHub analyzer
+│   │   │   │   ├── linkedin/        # LinkedIn reviewer
+│   │   │   │   ├── resume/          # Resume audit/tailor/roast
+│   │   │   │   └── roadmap/         # Roadmap generator
+│   │   │   └── ui/                  # Reusable components
+│   │   │       ├── Animations.jsx   # CountUp, Typewriter
+│   │   │       ├── GlassCard.jsx    # Glassmorphism card
+│   │   │       ├── GradientButton.jsx
+│   │   │       └── PasswordInput.jsx
+│   │   ├── hooks/                   # Custom React hooks
+│   │   │   ├── useRoadmap.js
+│   │   │   ├── useScanAts.js
+│   │   │   ├── useScanGithub.js
+│   │   │   └── useScanLinkedin.js
+│   │   ├── services/
+│   │   │   └── api.js               # Axios HTTP client
+│   │   ├── store/
+│   │   │   └── useStore.js          # Zustand global state
+│   │   ├── App.jsx                  # Main app component
+│   │   ├── main.jsx                 # Entry point
+│   │   └── index.css                # Global styles
+│   ├── .env                         # Environment variables
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── postcss.config.js
+│
+├── server/                          # Node.js Backend
+│   ├── config/
+│   │   └── db.js                    # MongoDB connection
+│   ├── controllers/                 # Route handlers
+│   │   ├── authController.js        # Auth logic
+│   │   ├── resumeController.js      # Resume operations
+│   │   ├── atsController.js         # ATS scanning
+│   │   ├── githubController.js      # GitHub analysis
+│   │   ├── linkedinController.js    # LinkedIn review
+│   │   └── roadmapController.js     # Roadmap generation
+│   ├── middleware/
+│   │   ├── authMiddleware.js        # JWT verification
+│   │   ├── errorMiddleware.js       # Error handling
+│   │   └── upload.js                # Multer file upload
+│   ├── models/                      # Mongoose schemas
+│   │   ├── User.js                  # User model
+│   │   └── UserProfile.js           # Profile data
+│   ├── routes/
+│   │   ├── authRoutes.js            # /api/auth/*
+│   │   └── apiRoutes.js             # /api/* (protected)
+│   ├── services/
+│   │   └── aiService.js             # AI integration layer
+│   ├── utils/
+│   │   └── gemini.js                # Gemini API wrapper
+│   ├── uploads/                     # Temporary file storage
+│   ├── .env                         # Environment variables
+│   ├── package.json
+│   └── server.js                    # Express server entry
+│
+├── .gitignore
+├── README.md
+└── LICENSE
+```
+
+---
+
+## 🎨 Design Philosophy
+
+### UI/UX Principles
+
+1. **Glassmorphism**: Frosted glass effects with backdrop blur
+2. **Dark Theme**: Reduced eye strain, professional look
+3. **3D Elements**: Interactive Three.js scene on landing
+4. **Smooth Animations**: Framer Motion, CSS transitions
+5. **Mobile-First**: Responsive breakpoints (sm, md, lg, xl)
+6. **Accessible**: ARIA labels, keyboard navigation
+7. **Performance**: Code splitting, lazy loading, optimized images
+
+### Color Palette
+
+```css
+Primary: #6366f1 (Indigo)
+Secondary: #ec4899 (Pink)
+Success: #10b981 (Emerald)
+Warning: #f59e0b (Amber)
+Error: #ef4444 (Red)
+Background: #0f172a (Slate-950)
+```
+
+---
+
+## 🧪 Testing
+
+### Manual Testing Checklist
+
+- [ ] Sign up with email/password
+- [ ] Sign in with Google OAuth
+- [ ] Upload PDF resume for audit
+- [ ] Paste resume text for tailoring
+- [ ] Scan GitHub username
+- [ ] Upload LinkedIn screenshot
+- [ ] Run ATS scanner with job description
+- [ ] Generate roadmap for 3 skills (Beginner/Intermediate/Advanced)
+- [ ] Test roast levels (Mild/Medium/Spicy)
+- [ ] Check responsive design on mobile/tablet/desktop
+- [ ] Verify persistent state after page refresh
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Issue: "GEMINI_API_KEY not found"**
+- **Solution**: Ensure `.env` file exists in `server/` with valid API key
+
+**Issue: MongoDB connection error**
+- **Solution**: Check MongoDB is running or Atlas IP whitelist
+
+**Issue: Google OAuth not working**
+- **Solution**: Verify Client ID matches in both `.env` files
+
+**Issue: File upload fails**
+- **Solution**: Check `uploads/` directory exists with write permissions
+
+**Issue: Port already in use**
+- **Solution**: Change port in `.env` or kill process:
+  ```bash
+  # Windows
+  netstat -ano | findstr :5000
+  taskkill /PID <PID> /F
+  ```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these guidelines:
+
+### Contribution Workflow
+
+1. **Fork** the repository
+2. **Create** a feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Commit** your changes:
+   ```bash
+   git commit -m "feat: add amazing feature"
+   ```
+4. **Push** to your branch:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open** a Pull Request
+
+### Code Standards
+
+- **Frontend**: ESLint rules, Prettier formatting
+- **Backend**: Follow existing patterns (MVC, async/await)
+- **Commits**: Use conventional commits (feat, fix, docs, style, refactor)
+- **Testing**: Add tests for new features
+- **Documentation**: Update README if adding new features
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Google Gemini AI** for powering intelligent features
+- **MongoDB** for robust data storage
+- **React Community** for excellent ecosystem
+- **Three.js** for stunning 3D capabilities
+- **Tailwind CSS** for rapid UI development
+
+---
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/SkillVerse_AI/issues)
+
+---
+
+<div align="center">
+
+### 🌟 Star this repo if it helped you!
+
+Made with ❤️ by the SkillVerse_AI Team
+
+[⬆ Back to Top](#-skillverse_ai)
+
+</div>

@@ -18,8 +18,9 @@ const AtsScanner = () => {
 
     // Helper to calculate color based on score
     const getScoreColor = (score) => {
-        if (score >= 80) return "text-emerald-400";
-        if (score >= 60) return "text-yellow-400";
+        const numScore = Number(score) || 0;
+        if (numScore >= 80) return "text-emerald-400";
+        if (numScore >= 60) return "text-yellow-400";
         return "text-red-400";
     };
 
@@ -114,11 +115,15 @@ const AtsScanner = () => {
                                 <AlertOctagon size={14} className="sm:w-4 sm:h-4"/> Critical Missing Keywords
                             </h4>
                             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                                {atsData.hard_skills_missing?.map((skill, idx) => (
-                                    <span key={idx} className="flex items-center gap-1 px-2 sm:px-3 py-1 bg-red-500/10 text-red-200 rounded-lg text-[10px] sm:text-xs border border-red-500/20">
-                                        <XCircle size={10} className="sm:w-3 sm:h-3"/> {skill}
-                                    </span>
-                                ))}
+                                {atsData.hard_skills_missing && Array.isArray(atsData.hard_skills_missing) && atsData.hard_skills_missing.length > 0 ? (
+                                    atsData.hard_skills_missing.map((skill, idx) => (
+                                        <span key={idx} className="flex items-center gap-1 px-2 sm:px-3 py-1 bg-red-500/10 text-red-200 rounded-lg text-[10px] sm:text-xs border border-red-500/20">
+                                            <XCircle size={10} className="sm:w-3 sm:h-3"/> {skill}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <p className="text-gray-400 text-xs">No critical gaps detected</p>
+                                )}
                             </div>
                         </GlassCard>
 

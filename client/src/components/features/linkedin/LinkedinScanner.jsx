@@ -3,7 +3,7 @@ import { useScanLinkedin } from '../../../hooks/useScanLinkedin';
 import useStore from '../../../store/useStore';
 import { GlassCard } from '../../ui/GlassCard';
 import { GradientButton } from '../../ui/GradientButton';
-import { Linkedin, Camera, Upload, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
+import { Linkedin, Camera, Upload, CheckCircle, AlertCircle, Sparkles, X } from 'lucide-react';
 
 const LinkedinScanner = () => {
     // 1. Setup State
@@ -11,6 +11,13 @@ const LinkedinScanner = () => {
     const [preview, setPreview] = useState(null);
     const { analyze, loading, error } = useScanLinkedin();
     const linkedinData = useStore((state) => state.linkedinData);
+    const setLinkedinData = useStore((state) => state.setLinkedinData);
+
+    const handleClear = () => {
+        setFile(null);
+        setPreview(null);
+        setLinkedinData(null);
+    };
 
     // Handle File Selection & Preview Generation
     const handleFileChange = (e) => {
@@ -92,6 +99,16 @@ const LinkedinScanner = () => {
                 <div className="space-y-4 sm:space-y-6">
                     {linkedinData ? (
                         <>
+                            {/* Clear Button */}
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={handleClear}
+                                    className="flex items-center gap-2 px-4 py-2 bg-red-900/30 hover:bg-red-900/50 border border-red-500/30 rounded-lg text-red-200 text-xs sm:text-sm font-bold transition-colors"
+                                >
+                                    <X size={16} /> Clear Report
+                                </button>
+                            </div>
+                            
                             {/* Score Card */}
                             <GlassCard delay={0.1} className="flex flex-col sm:flex-row items-center justify-between border-l-4 border-[#0077b5] gap-3 sm:gap-0 p-4 sm:p-6">
                                 <div className="text-center sm:text-left">
