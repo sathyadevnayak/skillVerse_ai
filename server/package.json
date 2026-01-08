@@ -21,6 +21,7 @@
     "mammoth": "^1.11.0",
     "mongoose": "^9.1.2",
     "multer": "^2.0.2",
+    "multer-gridfs-storage": "^5.0.2",
     "node-cache": "^5.1.2",
     "pdf-parse": "^2.4.5"
   },
