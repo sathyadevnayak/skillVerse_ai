@@ -14,11 +14,16 @@ import ResumeTailor from './components/features/resume/ResumeTailor';
 import ResumeCombined from './components/features/resume/ResumeCombined';
 
 // Icons
-import { Github, FileText, Map, Linkedin, Terminal, Menu, X, Briefcase, Target } from 'lucide-react';
+import { Github, FileText, Map, Linkedin, Terminal, Menu, X, Briefcase, Target, User } from 'lucide-react';
+import SignIn from './components/features/auth/SignIn';
+import SignUp from './components/features/auth/SignUp';
+import useStore from './store/useStore';
 
 const App = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const authUser = useStore((s) => s.authUser);
+    const logout = useStore((s) => s.logout);
 
     const navLinks = [
         { path: '/resume-combined', label: 'Resume Tailor', icon: <FileText size={18}/> },
@@ -44,7 +49,7 @@ const App = () => {
                 </h1>
             </Link>
 
-            {/* Desktop Nav */}
+                        {/* Desktop Nav */}
             <div className="hidden md:flex gap-1">
                 {navLinks.map((link) => (
                     <Link
@@ -60,6 +65,17 @@ const App = () => {
                         {link.icon} {link.label}
                     </Link>
                 ))}
+                                <div className="ml-2">
+                                    {authUser ? (
+                                        <button onClick={() => { localStorage.removeItem('auth_token'); logout(); }} className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+                                            <User size={18}/> {authUser.name} (Logout)
+                                        </button>
+                                    ) : (
+                                        <Link to="/signin" className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+                                            <User size={18}/> Sign In
+                                        </Link>
+                                    )}
+                                </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -179,6 +195,10 @@ const App = () => {
                 <Route path="/github" element={
                     <PageWrapper><GithubScanner /></PageWrapper>
                 }/>
+
+                {/* Auth */}
+                <Route path="/signin" element={<PageWrapper><SignIn /></PageWrapper>} />
+                <Route path="/signup" element={<PageWrapper><SignUp /></PageWrapper>} />
 
             </Routes>
         </AnimatePresence>

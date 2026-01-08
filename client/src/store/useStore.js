@@ -40,6 +40,12 @@ const useStore = create(
         linkedinData: null,
         resumeData: null
       }),
+
+      // --- AUTH STATE ---
+      authUser: null,
+      authToken: null,
+      setAuth: (user, token) => set({ authUser: user, authToken: token }),
+      logout: () => set({ authUser: null, authToken: null }),
     }),
     {
       name: 'career-ai-storage', // The key in localStorage
@@ -53,6 +59,8 @@ const useStore = create(
         roadmapData: state.roadmapData,
         linkedinData: state.linkedinData,
         resumeData: state.resumeData,
+        authUser: state.authUser,
+        authToken: state.authToken,
       }),
     }
   )

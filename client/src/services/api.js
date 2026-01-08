@@ -17,6 +17,15 @@ const apiClient = axios.create({
     timeout: 30000, // 30s timeout for AI operations
 });
 
+// Attach Authorization header if token exists
+apiClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 export const api = {
     /**
      * GitHub Intelligence
@@ -43,4 +52,10 @@ export const api = {
      * @param {string} currentLevel - e.g. "Beginner"
      */
     generateRoadmap: (skill, currentLevel = 'Beginner') => apiClient.post('/roadmap', { skill, currentLevel }),
+
+    // --- AUTH ---
+    signUp: (name, email, password) => apiClient.post('/auth/signup', { name, email, password }),
+    signIn: (email, password) => apiClient.post('/auth/signin', { email, password }),
+    getMe: () => apiClient.get('/auth/me'),
+    googleAuth: (credential) => apiClient.post('/auth/google', { credential }),
 };

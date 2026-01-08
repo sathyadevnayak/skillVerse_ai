@@ -12,6 +12,7 @@ import { analyzeLinkedin } from '../controllers/linkedinController.js';
 import { generateRoadmap } from '../controllers/roadmapController.js';
 import { auditResume, auditResumeText, tailorResume } from '../controllers/resumeController.js';
 import gridfsUpload from '../middleware/upload.js';
+import { requireAuth } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -60,13 +61,13 @@ router.post('/linkedin', diskStorage.single('screenshot'), analyzeLinkedin);
 // 4. Career Roadmap
 router.post('/roadmap', generateRoadmap);
 
-// 5. Resume Audit (Career Strategist) - Use GridFS Storage for MongoDB
-router.post('/resume/audit', gridfsUpload.single('resume'), auditResume);
+// 5. Resume Audit (Career Strategist) - Use GridFS Storage for MongoDB (Protected)
+router.post('/resume/audit', requireAuth, gridfsUpload.single('resume'), auditResume);
 
-// 5b. Resume Audit from Text (no file upload)
-router.post('/resume/audit-text', auditResumeText);
+// 5b. Resume Audit from Text (no file upload) (Protected)
+router.post('/resume/audit-text', requireAuth, auditResumeText);
 
-// 6. Resume Tailor (Job Assassin)
-router.post('/resume/tailor', tailorResume);
+// 6. Resume Tailor (Job Assassin) (Protected)
+router.post('/resume/tailor', requireAuth, tailorResume);
 
 export default router;

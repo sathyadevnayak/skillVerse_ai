@@ -19,6 +19,7 @@ const __dirname = dirname(__filename);
 // Imports
 import connectDB from './config/db.js';
 import apiRoutes from './routes/apiRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import errorHandler from './middleware/errorMiddleware.js';
 
 const app = express(); 
@@ -47,6 +48,7 @@ app.use(express.urlencoded({ extended: true })); // Parse Form Data
 
 // Mount all API routes under /api
 app.use('/api', apiRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health Check Endpoint
 app.get('/', (req, res) => {
