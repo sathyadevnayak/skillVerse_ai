@@ -140,29 +140,90 @@ demo/
 - npm/yarn
 - MongoDB
 - Gemini API key
+- Google OAuth Client ID (for authentication)
 
 ### Installation
-1. Clone repo: `git clone <url> && cd careerboost-ai`
-2. Backend setup:
-   - `cd server`
-   - `npm install`
-   - Create `.env`:
-     ```
-     GEMINI_API_KEY=...
-     MONGODB_URI=...
-     PORT=5000
-     ```
-   - `npm start`
-3. Frontend setup:
-   - `cd client`
-   - `npm install`
-   - `npm run dev`
-4. Open `http://localhost:3000`
+
+#### 1. Clone Repository
+```bash
+git clone <url>
+cd skillVerse_ai
+```
+
+#### 2. Backend Setup
+```bash
+cd server
+npm install
+```
+
+**Configure Environment Variables:**
+- Copy `.env.example` to `.env`:
+  ```bash
+  cp .env.example .env
+  ```
+- Edit `server/.env` and fill in your actual values:
+  ```env
+  PORT=5000
+  NODE_ENV=development
+  GEMINI_API_KEY=your_actual_gemini_key
+  GITHUB_TOKEN=your_github_token
+  MONGO_URI=your_mongodb_connection_string
+  JWT_SECRET=your_secure_jwt_secret
+  JWT_EXPIRES_IN=7d
+  GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+  ```
+
+**Start Backend:**
+```bash
+npm run dev
+```
+
+#### 3. Frontend Setup
+```bash
+cd ../client
+npm install
+```
+
+**Configure Environment Variables:**
+- Copy `.env.example` to `.env`:
+  ```bash
+  cp .env.example .env
+  ```
+- Edit `client/.env` with the same Google Client ID:
+  ```env
+  VITE_GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+  VITE_API_URL=http://localhost:5000/api
+  ```
+
+**Start Frontend:**
+```bash
+npm run dev
+```
+
+#### 4. Open Application
+Navigate to `http://localhost:5173`
+
+### Google OAuth Setup
+
+To enable Google Sign-In:
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Navigate to **APIs & Services** → **Credentials**
+4. Click **Create Credentials** → **OAuth 2.0 Client ID**
+5. Configure OAuth consent screen if prompted
+6. Select **Web application** as application type
+7. Add **Authorized JavaScript origins**:
+   - `http://localhost:5173`
+8. Add **Authorized redirect URIs** (optional):
+   - `http://localhost:5173`
+9. Copy the **Client ID** and paste it in both `.env` files
 
 ### Configuration
-- Add API key and DB URI to `.env`.
-- Ensure MongoDB runs.
-- Ports: Backend 5000, Frontend 3000.
+- Add all required API keys to `.env` files (use `.env.example` as template).
+- Ensure MongoDB is running and accessible.
+- Restart both servers after changing `.env` files.
+- Default Ports: Backend 5000, Frontend 5173.
 
 ## Usage
 - Dashboard: 3D hero, navigate features.
