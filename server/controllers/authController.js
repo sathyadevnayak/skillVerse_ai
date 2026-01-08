@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { OAuth2Client } from 'google-auth-library';
+import PDFParse from 'pdf-parse';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-this';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -126,6 +127,86 @@ export const googleAuth = async (req, res, next) => {
     return res.status(200).json({
       token,
       user: { id: user._id, name: user.name, email: user.email, role: user.role, avatarUrl: user.avatarUrl },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const uploadResume = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
+    }
+
+    const { mimetype, originalname, buffer, size } = req.file;
+
+    // Validate file type
+    if (mimetype !== 'application/pdf') {
+      return res.status(400).json({ message: 'Only PDF files are supported.' });
+    }
+
+    // Validate file size (10MB limit)
+    if (size > 10 * 1024 * 1024) {
+      return res.status(400).json({ message: 'File size exceeds 10MB limit.' });
+    }
+
+    // Extract text from PDF
+    let extractedText = '';
+    try {
+      const pdfData = await PDFParse(buffer);
+      extractedText = pdfData.text || '';
+    } catch (parseErr) {
+      return res.status(400).json({ message: 'Failed to parse PDF. Please ensure it is a valid PDF file.' });
+    }
+
+    if (!extractedText.trim()) {
+      return res.status(400).json({ message: 'PDF appears to be empty or unreadable.' });
+    }
+
+    // Update user with resume info
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        'resume.hasResume': true,
+        'resume.filename': originalname,
+        'resume.mimeType': mimetype,
+        'resume.extractedText': extractedText,
+        'resume.uploadedAt': new Date(),
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      message: 'Resume uploaded successfully.',
+      resume: {
+        hasResume: user.resume.hasResume,
+        filename: user.resume.filename,
+        uploadedAt: user.resume.uploadedAt,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getResume = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId).select('resume');
+
+    if (!user || !user.resume.hasResume) {
+      return res.status(404).json({ message: 'No resume found.' });
+    }
+
+    return res.status(200).json({
+      resume: {
+        hasResume: user.resume.hasResume,
+        filename: user.resume.filename,
+        uploadedAt: user.resume.uploadedAt,
+        extractedText: user.resume.extractedText,
+      },
     });
   } catch (err) {
     next(err);

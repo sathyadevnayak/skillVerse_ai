@@ -58,4 +58,6 @@ export const api = {
     signIn: (email, password) => apiClient.post('/auth/signin', { email, password }),
     getMe: () => apiClient.get('/auth/me'),
     googleAuth: (credential) => apiClient.post('/auth/google', { credential }),
+    uploadResume: (formData) => apiClient.post('/auth/upload-resume', formData),
+    getResume: () => apiClient.get('/auth/resume'),
 };

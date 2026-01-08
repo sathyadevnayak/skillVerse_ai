@@ -8,6 +8,14 @@ const UserSchema = new mongoose.Schema(
     googleId: { type: String, index: true },
     avatarUrl: { type: String },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    resume: {
+      hasResume: { type: Boolean, default: false },
+      filename: { type: String },
+      mimeType: { type: String },
+      extractedText: { type: String }, // Store parsed text for AI analysis
+      uploadedAt: { type: Date },
+      fileId: { type: String }, // GridFS file ID if using GridFS
+    },
   },
   { timestamps: true }
 );

@@ -1,4 +1,4 @@
-import { useTransform, useMotionValue, animate } from "framer-motion";
+import { motion, useTransform, useMotionValue, animate } from "framer-motion";
 import { useEffect, useState } from "react";
 
 // 1. COUNT UP (For Scores: 0 -> 85)

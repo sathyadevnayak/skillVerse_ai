@@ -4,19 +4,53 @@ import useStore from '../../../store/useStore';
 import { GlassCard } from '../../ui/GlassCard';
 import { GradientButton } from '../../ui/GradientButton';
 import { Target, CheckCircle, XCircle, Sparkles, AlertTriangle, Copy, Check, UploadCloud } from 'lucide-react';
+import { api } from '../../../services/api';
 
 const ResumeTailor = () => {
-    const { resumeData, setResumeData } = useStore();
+    const { resumeData, setResumeData, authUser } = useStore();
     const [jd, setJd] = useState("");
     const [resumeText, setResumeText] = useState(""); 
     const [file, setFile] = useState(null);
-    const [uploadMode, setUploadMode] = useState("text"); // "text" or "file"
+    const [uploadMode, setUploadMode] = useState("text"); // "text", "file", or "saved"
     const [tailorResult, setTailorResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [notice, setNotice] = useState("");
     const [copiedIndex, setCopiedIndex] = useState(null);
+    const [savedResume, setSavedResume] = useState(null);
+    const [loadingResume, setLoadingResume] = useState(false);
 
+    // Fetch saved resume on mount
+    useEffect(() => {
+        if (authUser) {
+            fetchSavedResume();
+        }
+    }, [authUser]);
+
+    const fetchSavedResume = async () => {
+        try {
+            setLoadingResume(true);
+            const { data } = await api.getResume();
+            if (data.resume.extractedText) {
+                setSavedResume(data.resume);
+            }
+        } catch (err) {
+            console.log('No saved resume found');
+        } finally {
+            setLoadingResume(false);
+        }
+    };saved resume mode, use the saved resume
+        if (uploadMode === "saved") {
+            if (!savedResume) {
+                setError("No saved resume found");
+                return;
+            }
+            resumeTextToUse = savedResume.extractedText;
+            setLoading(true);
+            setError("");
+        }
+        // If file mode, extract text from PDF first
+        else
     // Check if resume data exists in store on component mount
     useEffect(() => {
         if (resumeData) {
@@ -106,24 +140,37 @@ const ResumeTailor = () => {
         if (score >= 80) return "text-emerald-400";
         if (score >= 60) return "text-yellow-400";
         return "text-red-400";
-    };
+    };, Text, and Saved Resume */}
+                    <div className="flex gap-2 border-b border-white/10 flex-wrap">
+                        {savedResume && (
+                            <button
+                                onClick={() => setUploadMode("saved")}
+                                className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "saved" ? 'text-purple-400 border-b-2 border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                            >
+                                ✅ Use Your Resume
+                            </button>
+                        )}
+                        <button
+                            onClick={() => setUploadMode("file")}
+                            className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "file" ? 'text-purple-400 border-b-2 border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                        >
+                            📄 Upload PDF
+                        </button>
+                        <button
+                            onClick={() => setUploadMode("text")}
+                            className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "text" ? 'text-purple-400 border-b-2 border-purple-400' : 'text-gray-400 hover:text-white'}`}
+                        >
+                            ✏️ Paste Text {resumeData?.type === 'text' && '(Saved)'}
+                        </button>
+                    </div>
 
-    const getVerdictColor = (verdict) => {
-        if (verdict.includes("Low")) return "text-emerald-400";
-        if (verdict.includes("Medium")) return "text-yellow-400";
-        return "text-red-400";
-    };
-
-    const handleCopyBullet = (improvedBullet, index) => {
-        navigator.clipboard.writeText(improvedBullet);
-        setCopiedIndex(index);
-        setTimeout(() => setCopiedIndex(null), 2000);
-    };
-
-    return (
-        <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 animate-fade-in-up px-1 sm:px-0">
-            
-            {/* Left: Inputs */}
+                    {/* Resume Input: Text, File, or Saved */}
+                    {uploadMode === "saved" ? (
+                        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
+                            <p className="text-sm text-emerald-400 font-semibold">✓ Using saved resume: {savedResume.filename}</p>
+                            <p className="text-xs text-gray-400 mt-1">Uploaded: {new Date(savedResume.uploadedAt).toLocaleDateString()}</p>
+                        </div>
+                    ) :  Inputs */}
             <div className="space-y-4 sm:space-y-6">
                 <div className="text-center lg:text-left space-y-3">
                     <GlassCard className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-purple-500/30 bg-purple-500/10">

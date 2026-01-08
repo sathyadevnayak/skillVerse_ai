@@ -35,7 +35,7 @@ const SignUp = () => {
       const { data } = await api.signUp(form.name, form.email, form.password);
       localStorage.setItem('auth_token', data.token);
       setAuth(data.user, data.token);
-      navigate('/');
+      navigate('/signin');
     } catch (err) {
       setError(err?.response?.data?.message || 'Signup failed.');
     } finally {

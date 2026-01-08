@@ -4,15 +4,65 @@ import useStore from '../../../store/useStore';
 import { GlassCard } from '../../ui/GlassCard';
 import { GradientButton } from '../../ui/GradientButton';
 import { Briefcase, AlertTriangle, CheckCircle, Cpu, UploadCloud, ExternalLink, Eye, AlertOctagon, Zap } from 'lucide-react';
+import { api } from '../../../services/api';
 
 const ResumeAudit = () => {
-    const { resumeData, setResumeData } = useStore();
+    const { resumeData, setResumeData, authUser } = useStore();
     const [file, setFile] = useState(null);
     const [manualText, setManualText] = useState("");
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [uploadMode, setUploadMode] = useState("file"); // "file" or "text"
+    const [uploadMode, setUploadMode] = useState("file"); // "file", "text", or "saved"
+    const [savedResume, setSavedResume] = useState(null);
+    const [loadingResume, setLoadingResume] = useState(false);
+
+    // Fetch saved resume on mount
+    useEffect(() => {
+        if (authUser) {
+            fetchSavedResume();
+        }
+    }, [authUser]);
+
+    const fetchSavedResume = async () => {
+        try {saved") {
+            if (!savedResume) {
+                setError("No saved resume found");
+                return;
+            }
+
+            setLoading(true);
+            setError("");
+            
+            try {
+                // Use the saved resume's extracted text
+                const { data } = await axios.post('/api/resume/audit-text', {
+                    resumeText: savedResume.extractedText
+                });
+                console.log("Response:", data);
+                setResult(data.data);
+                
+                // Save extracted text to store for reuse in Career Audit
+                setResumeData({ type: 'text', text: savedResume.extractedText });
+            } catch (err) {
+                console.error("Analysis error:", err.response?.data || err.message);
+                const errorMessage = err.response?.data?.error || err.message || "Failed to analyze resume. Please try again.";
+                setError(errorMessage);
+            } finally {
+                setLoading(false);
+            }
+        } else if (uploadMode === "
+            setLoadingResume(true);
+            const { data } = await api.getResume();
+            if (data.resume.extractedText) {
+                setSavedResume(data.resume);
+            }
+        } catch (err) {
+            console.log('No saved resume found');
+        } finally {
+            setLoadingResume(false);
+        }
+    };
 
     // Check if resume data exists in store on component mount
     useEffect(() => {
@@ -126,21 +176,39 @@ const ResumeAudit = () => {
                         </p>
                     </div>
 
-                    {/* Toggle between Upload and Text */}
-                    <div className="max-w-2xl mx-auto flex gap-2 border-b border-white/10">
+                    {/* Toggle between Upload, Text, and Saved Resume */}
+                    <div className="max-w-2xl mx-auto flex gap-2 border-b border-white/10 flex-wrap">
+                        {savedResume && (
+                            <button
+                                onClick={() => setUploadMode("saved")}
+                                className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "saved" ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
+                            >
+                                ✅ Use Your Resume
+                            </button>
+                        )}
                         <button
                             onClick={() => setUploadMode("file")}
-                            className={`px-4 py-2 font-bold transition-colors ${uploadMode === "file" ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "file" ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             📄 Upload PDF
                         </button>
                         <button
                             onClick={() => setUploadMode("text")}
-                            className={`px-4 py-2 font-bold transition-colors ${uploadMode === "text" ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
+                            className={`px-4 py-2 font-bold transition-colors text-sm ${uploadMode === "text" ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
                         >
                             ✏️ Paste Text
                         </button>
                     </div>
+
+                    {/* Saved Resume Info */}
+                    {uploadMode === "saved" && (
+                        <div className="max-w-2xl mx-auto">
+                            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
+                                <p className="text-sm text-emerald-400 font-semibold">✓ Using saved resume: {savedResume.filename}</p>
+                                <p className="text-xs text-gray-400 mt-1">Uploaded: {new Date(savedResume.uploadedAt).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    )}
 
                     {/* File Upload Section */}
                     {uploadMode === "file" && (
@@ -180,7 +248,7 @@ const ResumeAudit = () => {
                         <GradientButton 
                             onClick={handleAnalyze} 
                             loading={loading} 
-                            disabled={uploadMode === "file" ? !file : !manualText.trim()} 
+                            disabled={uploadMode === "saved" ? !savedResume : (uploadMode === "file" ? !file : !manualText.trim())}
                             className="w-full text-sm sm:text-base py-3"
                         >
                             {loading ? "Analyzing Your Profile..." : "Analyze My Profile"}
