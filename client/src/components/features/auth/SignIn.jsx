@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../../../services/api';
 import useStore from '../../../store/useStore';
 import PasswordInput from '../../ui/PasswordInput';
-import { Terminal } from 'lucide-react';
 import GoogleLoginButton from './GoogleLoginButton';
 
 const SignIn = () => {
@@ -34,17 +33,6 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#0f172a] text-white">
-      {/* Top bar consistent with theme */}
-      <nav className="w-full px-4 sm:px-6 py-4 border-b border-white/5 bg-slate-900/60 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto flex items-center gap-2">
-          <div className="bg-indigo-600 p-2 rounded-lg">
-            <Terminal size={20} className="text-white" />
-          </div>
-          <Link to="/" className="text-lg sm:text-xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-            SKILL<span className="text-indigo-400">FORGE</span>
-          </Link>
-        </div>
-      </nav>
 
       <main className="relative z-10 px-4 sm:px-6 pt-8 sm:pt-12 pb-12">
         <div className="max-w-md mx-auto">

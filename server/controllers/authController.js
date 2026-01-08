@@ -105,7 +105,13 @@ export const googleAuth = async (req, res, next) => {
 
     let user = await User.findOne({ email });
     if (!user) {
-      user = await User.create({ name: name || email, email, googleId: sub, avatarUrl: picture });
+      user = await User.create({ 
+        name: name || email, 
+        email, 
+        googleId: sub, 
+        avatarUrl: picture,
+        passwordHash: null // No password for Google OAuth users
+      });
     } else {
       // Link Google account if not linked yet
       if (!user.googleId) {

@@ -7,17 +7,35 @@ const NeuralNetwork = (props) => {
   const ref = useRef();
   const { camera: _camera } = useThree(); // Keep for type checking if needed
   // Generate 5000 points in a sphere
-  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.5 }));
+  const [sphere] = useState(() => {
+    try {
+      const positions = random.inSphere(new Float32Array(5000), { radius: 1.5 });
+      // Validate positions to prevent NaN
+      for (let i = 0; i < positions.length; i++) {
+        if (!isFinite(positions[i])) positions[i] = 0;
+      }
+      return positions;
+    } catch (e) {
+      console.warn('Failed to generate sphere positions:', e);
+      return new Float32Array(5000);
+    }
+  });
 
   useFrame((state, delta) => {
+    if (!ref.current) return;
     // Rotates the entire cloud slowly
     ref.current.rotation.x -= delta / 10;
     ref.current.rotation.y -= delta / 15;
     
-    // Follow mouse movement smoothly (slower interpolation)
-    state.camera.position.x += (props.mouse.x * 0.5 - state.camera.position.x) * 0.02;
-    state.camera.position.y += (props.mouse.y * 0.5 - state.camera.position.y) * 0.02;
-    state.camera.lookAt(0, 0, 0);
+    // Follow mouse movement smoothly with validation
+    const targetX = (props.mouse?.x || 0) * 0.5;
+    const targetY = (props.mouse?.y || 0) * 0.5;
+    
+    if (isFinite(targetX) && isFinite(targetY)) {
+      state.camera.position.x += (targetX - state.camera.position.x) * 0.02;
+      state.camera.position.y += (targetY - state.camera.position.y) * 0.02;
+      state.camera.lookAt(0, 0, 0);
+    }
   });
 
   return (

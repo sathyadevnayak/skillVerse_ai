@@ -45,7 +45,7 @@ const App = () => {
                     <Terminal size={18} className="text-white sm:w-5 sm:h-5" />
                 </div>
                 <h1 className="text-base sm:text-xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                  SKILL<span className="text-indigo-600 dark:text-indigo-400">FORGE</span>
+                  skillVerse<span className="text-indigo-600 dark:text-indigo-400">_ai</span>
                 </h1>
             </Link>
 
