@@ -1,23 +1,33 @@
 import { useState } from 'react';
+import { api } from '../services/api';
+import useStore from '../store/useStore';
 
-const useScanGithub = () => {
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+// The "export" keyword here is CRITICAL
+export const useScanGithub = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const setGithubData = useStore((state) => state.setGithubData);
 
-  const scanGithub = async (username) => {
-    setLoading(true);
-    try {
-      // API call to scan GitHub
-      // const response = await api.scanGithub(username);
-      // setResult(response.data);
-    } catch (error) {
-      console.error('Error scanning GitHub:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const scan = async (username) => {
+        if (!username) return;
+        
+        setLoading(true);
+        setError(null);
+        
+        try {
+            const res = await api.scanGithub(username);
+            // The backend returns { success: true, data: ... }
+            if (res.data.success) {
+                setGithubData(res.data.data);
+            }
+        } catch (err) {
+            const msg = err.response?.data?.error?.message || "Failed to analyze profile.";
+            setError(msg);
+            console.error("[GitHub Hook]", err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return { result, loading, scanGithub };
+    return { scan, loading, error };
 };
-
-export default useScanGithub;
