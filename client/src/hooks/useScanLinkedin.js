@@ -1,23 +1,33 @@
 import { useState } from 'react';
+import { api } from '../services/api';
+import useStore from '../store/useStore';
 
-const useScanLinkedin = () => {
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+export const useScanLinkedin = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const setLinkedinData = useStore((state) => state.setLinkedinData);
 
-  const scanLinkedin = async (profileUrl) => {
-    setLoading(true);
-    try {
-      // API call to scan LinkedIn
-      // const response = await api.scanLinkedin(profileUrl);
-      // setResult(response.data);
-    } catch (error) {
-      console.error('Error scanning LinkedIn:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const analyze = async (imageFile) => {
+        if (!imageFile) return;
 
-  return { result, loading, scanLinkedin };
+        setLoading(true);
+        setError(null);
+
+        const formData = new FormData();
+        formData.append('screenshot', imageFile);
+
+        try {
+            const res = await api.analyzeLinkedin(formData);
+            if (res.data.success) {
+                setLinkedinData(res.data.data);
+            }
+        } catch (err) {
+            const msg = err.response?.data?.error?.message || "Vision Analysis failed.";
+            setError(msg);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { analyze, loading, error };
 };
-
-export default useScanLinkedin;
