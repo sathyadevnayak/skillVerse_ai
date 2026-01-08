@@ -5,7 +5,8 @@ export const GlassCard = ({ children, className = "", delay = 0 }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.4, delay: delay, ease: "easeOut" }}
       className={`
         relative overflow-hidden

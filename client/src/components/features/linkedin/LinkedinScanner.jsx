@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useScanLinkedin } from '../../../hooks/useScanLinkedin';
 import useStore from '../../../store/useStore';
 import { GlassCard } from '../../ui/GlassCard';
@@ -143,14 +144,26 @@ const LinkedinScanner = () => {
                             {/* Action Items */}
                             <GlassCard delay={0.4} className="p-4 sm:p-6">
                                 <h4 className="font-bold text-white mb-3 text-xs sm:text-sm uppercase tracking-wider">Optimization Checklist</h4>
-                                <ul className="space-y-1.5 sm:space-y-2">
+                                <motion.ul 
+                                    initial={{ opacity: 0 }} 
+                                    whileInView={{ opacity: 1 }} 
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    className="space-y-1.5 sm:space-y-2"
+                                >
                                     {linkedinData.action_items?.map((item, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-gray-400">
+                                        <motion.li 
+                                            key={idx}
+                                            initial={{ opacity: 0, y: 8 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.25, ease: 'easeOut', delay: idx * 0.05 }}
+                                            className="flex items-start gap-2 text-xs sm:text-sm text-gray-400"
+                                        >
                                             <CheckCircle size={12} className="mt-1 text-[#0077b5] sm:w-3.5 sm:h-3.5 shrink-0" />
                                             {item}
-                                        </li>
+                                        </motion.li>
                                     ))}
-                                </ul>
+                                </motion.ul>
                             </GlassCard>
 
                             {linkedinData.photo_report && (

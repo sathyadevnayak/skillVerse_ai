@@ -20,6 +20,7 @@
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
+- [Judge Highlights](#-judge-highlights)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
@@ -35,6 +36,33 @@
 ## 🎯 Overview
 
 **SkillVerse_AI** is a comprehensive career intelligence platform that leverages cutting-edge AI (Google Gemini) to help job seekers optimize their professional presence. The platform combines resume analysis, profile scanning, and personalized career planning into a seamless, intuitive experience.
+
+## ✨ Highlights
+
+- **3D Hero Experience**: Interactive Three.js scene with subtle parallax, optimized for GPU performance and mobile safety.
+- **AI Resilience**: Multi-key rotation with automatic failover across Gemini API keys prevents downtime under free-tier quotas.
+- **LinkedIn Vision Critique**: Image + text analysis with strict JSON schema, focused on issues only; photo quality report with actionable fixes.
+- **Resume Intelligence**: ATS scoring, skill gap detection, tailored rewrites, and an optional “SAVAGE” roast mode for brutally honest feedback.
+- **Personalized Roadmaps**: 3–6 week plans by skill level with curated YouTube resources and progress stats (weeks, tasks, projects, hours).
+- **Modern UI/UX**: Glassmorphism cards, scroll-in animations, hover shine effects, and mobile-first responsive layouts.
+- **Performance by Design**: Lazy-loaded routes, batched state updates, minimal payloads, and clean async flows.
+- **Security & Hygiene**: JWT auth, input validation, rate-limit resilience, temporary file cleanup, and least-privilege patterns.
+- **Developer Experience**: Clear API contracts, modular controllers, reusable hooks, and shared motion variants for consistent animations.
+
+## 🧩 Problem Statement
+
+Skill gaps and employment readiness are hard to measure consistently. Job seekers often lack clear feedback on which skills are missing, how to tailor their resume to target roles, and whether their online presence (LinkedIn/GitHub) aligns with employer expectations. Traditional job portals and resume builders rarely provide actionable, AI-backed diagnostics across resume, ATS, LinkedIn visuals, and GitHub activity.
+
+## 🧠 Solution Overview
+
+SkillVerse_AI detects skill gaps and evaluates employment readiness using multi-source signals:
+- AI-powered resume audit: ATS score, strengths/weaknesses, missing skills
+- Resume tailoring: role-specific rewrites with keyword enhancement
+- LinkedIn visual critique: photo quality, headline optimization, action checklist
+- GitHub analysis: tech stack, project quality, contribution patterns
+- Roadmap generator: personalized 3–6 week learning plans to close gaps
+
+Together, these produce a clear improvement path: diagnose → tailor → learn → showcase.
 
 ### Why SkillVerse_AI?
 
@@ -269,6 +297,39 @@ Create `.env` file in `client/` directory:
 VITE_GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
 VITE_API_URL=/api
 ```
+
+### 🔐 Environment Variables Summary
+
+- Server `.env`:
+  - `PORT`: API port (default 5000)
+  - `MONGO_URI`: MongoDB connection string (local or Atlas)
+  - `JWT_SECRET`, `JWT_EXPIRES_IN`: Auth token settings
+  - `GOOGLE_CLIENT_ID`: OAuth Client ID
+  - `GEMINI_API_KEY`: Comma-separated list of Gemini API keys for rotation
+  - `GITHUB_TOKEN` (optional): Increases GitHub API rate limits
+
+- Client `.env`:
+  - `VITE_GOOGLE_CLIENT_ID`: Same OAuth Client ID used by server
+  - `VITE_API_URL`: Base API path (use `/api` when proxying via dev server)
+
+### ▶️ Run Instructions
+
+1) Start backend:
+```bash
+cd server
+npm install
+npm run dev
+```
+
+2) Start frontend:
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
 
 **Start Frontend:**
 
@@ -759,7 +820,6 @@ We welcome contributions! Please follow these guidelines:
 
 This project is licensed under the **MIT License**.
 
----
 
 ## 🙏 Acknowledgments
 
@@ -769,7 +829,15 @@ This project is licensed under the **MIT License**.
 - **Three.js** for stunning 3D capabilities
 - **Tailwind CSS** for rapid UI development
 
----
+
+## 👥 Team
+
+- Team Name: xor
+- Members:
+  - Anish Shetty
+  - Ashwin Bairi
+  - Sathyadev Nayak
+  - Adithya
 
 ## 📞 Support
 

@@ -48,9 +48,14 @@ const RoadmapGenerator = () => {
         // Must match valid character set
         if (!/^[a-zA-Z0-9\s\-+.#]+$/.test(cleaned)) return null;
         
-        // Block obvious keyboard mashing (repeated single chars like 'aaaa', 'qwerty', 'asdfgh')
+        // Block obvious keyboard mashing: repeated single chars like 'aaaa'
         if (/^([a-zA-Z])\1{3,}$/.test(cleaned)) return null; // 'aaaa', 'bbbb', etc.
-        if (/^[qwertyuiopasdfghjklzxcvbnm]{5,}$/.test(cleaned)) return null; // keyboard rows
+        // Block common keyboard row patterns specifically (not all letter words)
+        const lower = cleaned.toLowerCase();
+        const keyboardPatterns = [
+            'qwerty', 'asdfgh', 'zxcvbn', 'qwer', 'asdf', 'zxcv'
+        ];
+        if (keyboardPatterns.some(p => lower.includes(p))) return null;
         
         // Block mostly consonants or mostly vowels (weird ratio)
         const vowels = cleaned.match(/[aeiouAEIOU]/g)?.length || 0;
@@ -146,7 +151,7 @@ const RoadmapGenerator = () => {
                             Generate <ArrowRight size={16} className="ml-2" />
                         </GradientButton>
                         {roadmapData && (
-                            <button onClick={handleClear} className="h-14 sm:h-16 px-4 rounded-xl border border-red-400/50 text-red-300 bg-red-500/10 hover:bg-red-500/20">
+                            <button onClick={handleClear} className="h-14 sm:h-16 px-4 rounded-xl border border-red-400/50 text-red-300 bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center">
                                 <X size={18} />
                             </button>
                         )}
